@@ -22,7 +22,7 @@
   </div>
 
   <%= form.label :timezone %>
-  <%= form.select :timezone, (-11..13) %>
+  <%= form.select :timezone, (-11..12) %>
 
   <div class="checkbox">
     <%= form.collection_check_boxes :group_ids, Group.all, :id, :name %>

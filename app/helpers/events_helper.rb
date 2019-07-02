@@ -8,10 +8,10 @@ module EventsHelper
     end
   end
 
-  def day_iterator &block
+  def day_iterator
     days = %w(Monday Tuesday Wednesday Thursday Friday Saturday Sunday)
     days.each do |day|
-      block.call day
+      yield day
     end
   end
 end
