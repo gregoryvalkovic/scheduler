@@ -3,5 +3,12 @@ table.timetable td {
   height: 20px;
   border: 1px solid black;
   vertical-align: middle;
+}
 
+.free {
+  background-color: green;
+}
+
+.busy {
+  background-color: #cc0000;
 }

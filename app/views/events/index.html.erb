@@ -1,13 +1,13 @@
 <p id="notice"><%= notice %></p>
-<%= if @events %>
+<% if @events && @events.size > 0 %>
   <h1>Events</h1>
 
   <table>
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Startdate</th>
-        <th>Enddate</th>
+        <th>Id</th>
+        <th>Day</th>
+        <th>Time</th>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -15,12 +15,11 @@
     <tbody>
       <% @events.each do |event| %>
         <tr>
-          <td><%= event.name %></td>
-          <td><%= event.startDate %></td>
-          <td><%= event.endDate %></td>
-          <td><%= link_to 'Show', event %></td>
+          <td><%= event.id %></td>
+          <td><%= event.day %></td>
+          <td><%= event.time %></td>
           <td><%= link_to 'Edit', url_for([@user, event], ) %></td>
-          <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Destroy', user_event_path(event.id, @user.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>
@@ -30,5 +29,3 @@
 <% else %>
   <h1> No events </h1>
 <% end %>
-
-<%= #link_to 'New Event', new_event_path %>

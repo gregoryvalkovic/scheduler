@@ -14,24 +14,21 @@ class EventsController < ApplicationController
   def show
   end
 
-  # GET /events/new
   def new
-    @event = Event.new
     @user = User.find params[:user_id]
+    @event = @user.events.build
   end
 
-  # GET /events/1/edit
   def edit
   end
 
-  # POST /events
-  # POST /events.json
   def create
-    @event = Event.new(event_params)
+    @user = User.find params[:user_id]
+    @event = @user.events.build event_params
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, notice: 'Event was successfully created.' }
+        format.html { redirect_to @user, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
       else
         format.html { render :new }
@@ -57,9 +54,10 @@ class EventsController < ApplicationController
   # DELETE /events/1
   # DELETE /events/1.json
   def destroy
+    @user = User.find params[:user_id]
     @event.destroy
     respond_to do |format|
-      format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }
+      format.html { redirect_to @user, notice: 'Event was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -67,11 +65,15 @@ class EventsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
-      @event = Event.find(params[:id])
+      begin
+        @event = Event.find(params[:id])
+      rescue ActiveRecord::RecordNotFound => e
+        puts e.message
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:name, :startDate, :endDate)
+      params.require(:event).permit(:day, :time)
     end
 end

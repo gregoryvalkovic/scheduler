@@ -10,6 +10,10 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @event_day_time_list = []
+    @user.events.each do |event|
+      @event_day_time_list << [event.day, event.time]
+    end
   end
 
   # GET /users/new
@@ -24,7 +28,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params.require :timezone)
+    @user = User.new(user_params)
 
     respond_to do |format|
       if @user.save

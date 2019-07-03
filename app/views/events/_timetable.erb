@@ -3,7 +3,7 @@
 
     <tr>
       <th></th>
-      <% day_iterator do |day| %>
+      <% day_iterator do |k, day| %>
         <th>
           <%= day %>
         </th>
@@ -12,13 +12,13 @@
   </thead>
 
   <tbody>
-    <% (0...24).each do |n| %>
+    <% (0...24).each do |time| %>
       <tr>
         <td>
-          <%= "#{time_label n} - #{time_label n + 1}"%>
+          <%= "#{time_label time} - #{time_label time + 1}"%>
         </td>
-        <% (0..7).each do %>
-          <td></td>
+        <% day_iterator do |k, day| %>
+          <td class="<%= @event_day_time_list.include?([k, time]) ? "busy" : "free" %>"></td>
         <% end %>
       </tr>
     <% end %>
