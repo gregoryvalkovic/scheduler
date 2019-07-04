@@ -1,5 +1,5 @@
 class ReworkEventsAgain < ActiveRecord::Migration[5.2]
   def change
-    add_index :events, [:user_id, :day, :time]
+    add_index :events, [:user_id, :day, :time], unique: true
   end
 end

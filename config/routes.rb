@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :groups
   resources :users do
-    resources :events
+      resource :events, except: [:show, :edit, :new], path: "events/:day/:time"
   end
 
   get    '/login',   to: 'sessions#new'
